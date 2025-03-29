@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Nginx!</title>
+    <style>
+        :root {
+            --primary-color: #009639;
+            --secondary-color: #2c3e50;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background-color: var(--light-gray);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            min-height: 100vh;
+        }
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid #eee;
+        }
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .logo {
+            height: 100px;
+            margin: 20px 0;
+            transition: transform 0.3s ease;
+        }
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        .content {
+            padding: 20px 0;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid #eee;
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-top: 30px;
+        }
+        .status-badge {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            .logo {
+                height: 70px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Welcome to Nginx! <span class="status-badge">Running</span></h1>
+            <img src="https://download.logo.wine/logo/Nginx/Nginx-Logo.wine.png" alt="Nginx Logo" class="logo">
+        </header>
+
+        <div class="content">
+            <p>If you see this page, the Nginx web server is successfully installed and working on your system.</p>
+            
+            <h2>Getting Started</h2>
+            <ul>
+                <li><strong>Document Root:</strong> <code>/usr/share/nginx/html</code> or <code>/var/www/html</code></li>
+                <li><strong>Configuration:</strong> <code>/etc/nginx/nginx.conf</code></li>
+                <li><strong>Sites Available:</strong> <code>/etc/nginx/sites-available/</code></li>
+                <li><strong>Logs:</strong> <code>/var/log/nginx/</code></li>
+            </ul>
+
+            <h2>Next Steps</h2>
+            <ul>
+                <li>Upload your website files to the server's document root directory</li>
+                <li>Configure virtual hosts for multiple websites</li>
+                <li>Set up SSL/TLS with Let's Encrypt for secure HTTPS connections</li>
+                <li>Optimize Nginx configuration for better performance</li>
+                <li>Set up proper file permissions and ownership</li>
+            </ul>
+
+            <h2>Documentation & Resources</h2>
+            <ul>
+                <li><a href="https://nginx.org/en/docs/" target="_blank" rel="noopener">Official Nginx Documentation</a></li>
+                <li><a href="https://wiki.nginx.org/Main" target="_blank" rel="noopener">Nginx Wiki</a></li>
+                <li><a href="https://www.digitalocean.com/community/tutorials?q=nginx" target="_blank" rel="noopener">Nginx Tutorials (DigitalOcean)</a></li>
+                <li><a href="https://github.com/nginx/nginx" target="_blank" rel="noopener">Nginx GitHub Repository</a></li>
+            </ul>
+
+            <h2>Server Information</h2>
+            <ul>
+                <li><strong>Hostname:</strong> <span id="hostname"></span></li>
+                <li><strong>IP Address:</strong> <span id="ip-address"></span></li>
+                <li><strong>User Agent:</strong> <span id="user-agent"></span></li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>Thank you for using Nginx.</p>
+            <p>Server: <span id="server-info"></span> | Page served on: <span id="timestamp"></span></p>
+            <p>Nginx is a high-performance web server and reverse proxy.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Display server information
+        document.getElementById('server-info').textContent = 
+            window.location.hostname + ' running Nginx';
+        
+        // Additional client-side information
+        document.getElementById('hostname').textContent = window.location.hostname;
+        document.getElementById('user-agent').textContent = navigator.userAgent;
+        
+        // Get client IP (note: this will only show the IP Nginx sees, which might be a proxy)
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ip-address').textContent = data.ip;
+            })
+            .catch(() => {
+                document.getElementById('ip-address').textContent = 'Not available';
+            });
+        
+        // Display current timestamp
+        const now = new Date();
+        document.getElementById('timestamp').textContent = now.toLocaleString();
+    </script>
+</body>
+</html>
